@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#174b37">
+  <meta name="description" content="Sakart school prototype: farming supplies and farm equipment marketplace.">
+  <title>Sakart | Farm smarter, shop simpler</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="brand" data-go="home" aria-label="Sakart home">
+        <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 40 40" width="29" height="29" fill="none"><path d="M10 29C18 27 25 19 29 8c-12 2-20 8-20 18 0 2 0 2 1 3Z" fill="#D5F5A9"/><path d="M14 26c8-1 13 1 16 7" stroke="#E9FFC9" stroke-width="2.2" stroke-linecap="round"/><path d="M10 29c4-7 9-11 16-16" stroke="#316947" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span>Sakart<span class="brand-dot">.</span></span>
+      </button>
+      <nav class="primary-nav" id="nav" aria-label="Main navigation">
+        <button class="nav-link active" data-go="home">Home</button>
+        <button class="nav-link" data-go="marketplace">Marketplace</button>
+        <button class="nav-link" data-go="seller">Seller Center</button>
+        <button class="nav-link" data-go="checkout">Cart &amp; Checkout <span class="count-pill" id="nav-cart-count">0</span></button>
+        <button class="nav-link" data-go="orders">My Orders</button>
+      </nav>
+      <div class="header-actions">
+        <span class="auth-actions" id="auth-actions"></span>
+        <button class="mobile-menu" id="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- MODULE 1: HOME -->
+    <section class="page active" id="home" aria-labelledby="home-title">
+      <div class="container">
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow light"><span class="tiny-dot"></span> MADE FOR THE FARMING COMMUNITY</span>
+            <h1 id="home-title">Better supplies.<br><em>Better harvests.</em></h1>
+            <p>Find farming essentials and equipment from different sellers in one easy-to-use marketplace.</p>
+            <div class="hero-actions">
+              <button class="btn btn-lime" data-go="marketplace">Explore Marketplace <span aria-hidden="true">↗</span></button>
+              <button class="btn btn-outline-light" data-go="seller">Become a Seller</button>
+            </div>
+            <div class="hero-note"><span class="avatar-stack" aria-hidden="true">🌾🌱</span><span>One marketplace for farming needs</span></div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="halo halo-one"></div><div class="halo halo-two"></div>
+            <div class="product-tile big-tile"><div class="tile-tag">FARM EQUIPMENT</div><div class="tile-photo"><img data-photo="heroMain" alt="Farm equipment"></div><span>Tools that work as hard as you</span></div>
+            <div class="product-tile small-tile top"><span class="tile-thumb"><img data-photo="heroSmall1" alt=""></span><span>Easy<br>Irrigation</span></div>
+            <div class="product-tile small-tile bottom"><span class="tile-thumb"><img data-photo="heroSmall2" alt=""></span><span>Farm<br>Essentials</span></div>
+            <div class="starburst"></div>
+          </div>
+        </div>
+        <div class="benefit-strip"><span>🏪 Multiple sellers</span><span>💰 Compare product prices</span><span>🛒 Simple ordering</span><span>📦 Track order updates</span></div>
+
+        <div class="section-heading heading-gap"><div><span class="eyebrow">EXPLORE SAKART</span><h2>Shop by category</h2><p>Everything you need to keep your farm growing.</p></div></div>
+        <div class="category-grid">
+          <button class="category-card" data-category-go="Farm Tools"><span class="category-icon icon-tools"><img data-photo="categoryTools" alt=""></span><strong>Farm Tools</strong><span>Everyday farming essentials ↗</span></button>
+          <button class="category-card" data-category-go="Equipment"><span class="category-icon icon-equip"><img data-photo="categoryEquipment" alt=""></span><strong>Equipment</strong><span>Practical machines &amp; kits ↗</span></button>
+          <button class="category-card" data-category-go="Supplies"><span class="category-icon icon-supplies"><img data-photo="categorySupplies" alt=""></span><strong>Farming Supplies</strong><span>Grow and care for crops ↗</span></button>
+        </div>
+
+        <div class="section-heading heading-gap between"><div><span class="eyebrow">START SHOPPING</span><h2>Featured products</h2><p>Sample products from our demo marketplace.</p></div><button class="text-link" data-go="marketplace">View all products ↗</button></div>
+        <div class="product-grid" id="featured-products"></div>
+        <div class="bottom-cta"><div><span class="eyebrow light">FOR FARM SUPPLY SELLERS</span><h2>Bring your products to more buyers.</h2><p>Register as a seller and create your product listings.</p></div><button class="btn btn-lime" data-go="seller">Open Seller Center ↗</button></div>
+      </div>
+    </section>
+
+    <!-- MODULE 2: MARKETPLACE -->
+    <section class="page" id="marketplace" aria-labelledby="marketplace-title">
+      <div class="container page-spacing">
+        <div class="page-top"><span class="eyebrow">MARKETPLACE</span><h1 id="marketplace-title">Find what your farm needs.</h1><p>Browse products, compare prices, and add items to your cart.</p></div>
+        <div class="toolbar">
+          <label class="search-wrap"><span aria-hidden="true">⌕</span><input id="product-search" type="search" placeholder="Search farm tools, supplies, equipment..." aria-label="Search products"></label>
+          <label class="filter-wrap"><span class="sr-only">Filter category</span><select id="category-filter"><option value="All">All categories</option><option value="Farm Tools">Farm Tools</option><option value="Equipment">Equipment</option><option value="Supplies">Farming Supplies</option></select></label>
+          <span class="result-count" id="product-count">0 products</span>
+        </div>
+        <div class="product-grid" id="marketplace-products"></div>
+        <div class="compare-panel hidden" id="compare-panel" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- MODULE 3: SELLER CENTER -->
+    <section class="page" id="seller" aria-labelledby="seller-title">
+      <div class="container page-spacing">
+        <div class="page-top"><span class="eyebrow">SELLER CENTER</span><h1 id="seller-title">Grow your business with Sakart.</h1><p>Register as a supplier and manage your farming product listings.</p></div>
+        <div class="seller-layout">
+          <div class="panel">
+            <div class="panel-header"><span class="panel-icon">🪴</span><div><h2>Seller registration</h2><p>New sellers are reviewed before publishing.</p></div></div>
+            <div id="seller-status"></div>
+            <form id="seller-form" class="form-stack">
+              <label>Business / Seller Name<input name="businessName" maxlength="65" required placeholder="e.g. Greenfield Farm Supply"></label>
+              <label>Seller Type<select name="sellerType" required><option value="">Select seller type</option><option>Agricultural Supplier</option><option>Farm Equipment Supplier</option><option>Farming Supply Seller</option></select></label>
+              <label>City / Municipality<input name="location" maxlength="60" required placeholder="e.g. San Jose City"></label>
+              <button class="btn btn-dark" type="submit">Submit Seller Application →</button>
+            </form>
+          </div>
+          <div class="panel panel-green"><span class="eyebrow light">HOW SELLING WORKS</span><h2>A simple path from listing to order.</h2>
+            <div class="seller-steps"><div><span>01</span><p><strong>Apply to sell</strong><br>Send your basic seller information.</p></div><div><span>02</span><p><strong>Verification</strong><br>Administrative staff reviews the application (simulated).</p></div><div><span>03</span><p><strong>List products</strong><br>Publish a farming supply or equipment product.</p></div></div>
+            <div class="seller-botanical" aria-hidden="true">✳</div>
+          </div>
+        </div>
+        <div class="panel listing-panel hidden" id="listing-panel"><div class="panel-header"><span class="panel-icon">📦</span><div><h2>Manage product listings</h2><p>Sample listing form available after demo approval.</p></div></div>
+          <form id="listing-form" class="form-grid">
+            <label>Product Name<input name="productName" maxlength="65" required placeholder="e.g. Garden Hand Rake"></label>
+            <label>Category<select name="category" required><option value="">Select category</option><option>Farm Tools</option><option>Equipment</option><option>Supplies</option></select></label>
+            <label>Price (₱)<input name="price" type="number" min="1" max="999999" step="1" required placeholder="e.g. 350"></label>
+            <label class="full">Product Photo Link (URL)<input name="image" type="text" inputmode="url" autocomplete="off" placeholder="Paste a photo link, e.g. https://example.com/trowel.jpg"></label>
+            <label class="full">…or upload a photo from your device<input name="photoFile" type="file" accept="image/*"></label>
+            <div class="photo-preview full" id="photo-preview" aria-live="polite"></div>
+            <button class="btn btn-dark" type="submit">Publish Demo Product +</button>
+          </form>
+          <div id="my-listings" class="my-listings"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 4: CART AND CHECKOUT -->
+    <section class="page" id="checkout" aria-labelledby="checkout-title">
+      <div class="container page-spacing">
+        <div class="page-top"><span class="eyebrow">CART &amp; CHECKOUT</span><h1 id="checkout-title">Your farm essentials, all together.</h1><p>Review your cart and place a sample order.</p></div>
+        <div class="checkout-layout">
+          <div><div class="panel cart-panel"><div class="flex-between"><h2>Shopping cart</h2><span id="cart-items-label" class="muted"></span></div><div id="cart-items"></div></div>
+            <div class="panel checkout-form-panel" id="checkout-form-panel"><h2>Delivery &amp; demo payment</h2><p class="muted">This is only a simulation. Please use sample details.</p>
+              <form class="form-stack" id="checkout-form">
+                <label>Recipient Name<input name="buyer" required maxlength="50" placeholder="e.g. Juan Dela Cruz"></label>
+                <label>Delivery Area (city only)<input name="area" required maxlength="60" placeholder="e.g. San Jose City"></label>
+                <label>Payment Method<select name="payment" required><option value="">Choose a method</option><option>Cash on Delivery</option><option>E-Wallet</option><option>Bank Transfer</option></select></label>
+                <button class="btn btn-dark" type="submit">Place Order →</button>
+              </form>
+            </div>
+          </div>
+          <aside class="panel order-summary"><h2>Order summary</h2><div id="cart-summary"></div></aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 5: MY ORDERS -->
+    <section class="page" id="orders" aria-labelledby="orders-title">
+      <div class="container page-spacing">
+        <div class="page-top"><span class="eyebrow">MY ORDERS</span><h1 id="orders-title">Track your orders.</h1><p>See the progress of your demo orders from placement to delivery.</p></div>
+        <div id="orders-list" class="orders-list"></div>
+        <div class="help-strip"><span class="help-icon">💬</span><div><strong>Need help with an order?</strong><p>In a complete Sakart platform, online customer support would assist buyers and sellers.</div></div>
+      </div>
+    </section>
+
+    <!-- AUTH: LOGIN -->
+    <section class="page auth-page" id="login" aria-labelledby="login-title">
+      <div class="container">
+        <div class="auth-card">
+          <div class="auth-side"><img class="auth-photo" data-photo="authPhoto" alt=""><div class="auth-side-copy"><span class="auth-brand">Sakart</span><p>Farming Supplies &amp; Equipment Marketplace</p></div></div>
+          <div class="auth-main">
+            <form class="auth-form" id="login-form">
+              <div><h1 id="login-title">Welcome Back!</h1><p class="sub">Log in to your Sakart account</p></div>
+              <label>Email Address<input name="email" type="email" required autocomplete="email" placeholder="Enter your email"></label><label>Password<span class="pw-wrap"><input name="password" type="password" required minlength="6" autocomplete="current-password" placeholder="Enter your password"><button class="pw-toggle" type="button" data-toggle-pw aria-label="Show or hide password"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label><button class="btn btn-dark" type="submit">Log in</button><div class="auth-row"><label class="check"><input type="checkbox" name="remember"> Remember me</label><button class="link-btn" type="button" data-go="forgot">Forgot Password?</button></div>
+              <p class="form-msg" role="alert"></p>
+              <p class="auth-switch">Don't have an account? <button class="link-btn" type="button" data-go="signup">Sign Up</button></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTH: SIGNUP -->
+    <section class="page auth-page" id="signup" aria-labelledby="signup-title">
+      <div class="container">
+        <div class="auth-card">
+          <div class="auth-side"><img class="auth-photo" data-photo="authPhoto" alt=""><div class="auth-side-copy"><span class="auth-brand">Sakart</span><p>Farming Supplies &amp; Equipment Marketplace</p></div></div>
+          <div class="auth-main">
+            <form class="auth-form" id="signup-form">
+              <div><h1 id="signup-title">Create Account</h1><p class="sub">Join the Sakart farming marketplace</p></div>
+              <label>Full Name<input name="name" type="text" required maxlength="50" autocomplete="name" placeholder="Enter your full name"></label><label>Email Address<input name="email" type="email" required autocomplete="email" placeholder="Enter your email"></label><label>Password<span class="pw-wrap"><input name="password" type="password" required minlength="6" autocomplete="new-password" placeholder="At least 6 characters"><button class="pw-toggle" type="button" data-toggle-pw aria-label="Show or hide password"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label><label>Confirm Password<span class="pw-wrap"><input name="confirm" type="password" required minlength="6" autocomplete="new-password" placeholder="Re-enter your password"><button class="pw-toggle" type="button" data-toggle-pw aria-label="Show or hide password"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label><button class="btn btn-dark" type="submit">Sign Up</button><p class="muted" style="font-size:11px;margin:0">Prototype only. Please don't use a real password.</p>
+              <p class="form-msg" role="alert"></p>
+              <p class="auth-switch">Already have an account? <button class="link-btn" type="button" data-go="login">Log in</button></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTH: FORGOT -->
+    <section class="page auth-page" id="forgot" aria-labelledby="forgot-title">
+      <div class="container">
+        <div class="auth-card">
+          <div class="auth-side"><img class="auth-photo" data-photo="authPhoto" alt=""><div class="auth-side-copy"><span class="auth-brand">Sakart</span><p>Farming Supplies &amp; Equipment Marketplace</p></div></div>
+          <div class="auth-main">
+            <form class="auth-form" id="forgot-form">
+              <div><h1 id="forgot-title">Forgot Password?</h1><p class="sub">Enter your email and we will pretend to send a reset link</p></div>
+              <label>Email Address<input name="email" type="email" required autocomplete="email" placeholder="Enter your email"></label><button class="btn btn-dark" type="submit">Send Reset Link</button>
+              <p class="form-msg" role="alert"></p>
+              <p class="auth-switch">Remembered it? <button class="link-btn" type="button" data-go="login">Back to Log in</button></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><div><strong>Sakart<span class="brand-dot">.</span></strong><span>Farming supplies &amp; equipment marketplace</span></div><span></span><button class="footer-reset" id="reset-demo" type="button">Reset data</button></div></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
